@@ -1,0 +1,27 @@
+<mujoco model="vertical_two_link_monoped">
+ <compiler angle="radian"/>
+ <option timestep="0.001" gravity="0 0 -9.81" integrator="RK4"/>
+ <default><joint damping="0.03" armature="0.0002"/><geom friction="1.2 0.005 0.0001" condim="3"/></default>
+ <worldbody>
+  <geom name="floor" type="plane" size="2 2 0.1" rgba="0.65 0.7 0.75 1"/>
+  <body name="carriage" pos="0 0 0.36">
+   <joint name="slider" type="slide" axis="0 0 1" limited="true" range="-0.10 2.0" damping="0.02"/>
+   <geom name="hip_housing" type="sphere" size="0.045" mass="0.35" rgba="0.2 0.3 0.7 1"/>
+   <geom name="motor_hip" type="cylinder" pos="0 -0.055 0" size="0.035 0.025" mass="0.20" rgba="0.1 0.1 0.1 1"/>
+   <geom name="motor_knee" type="cylinder" pos="0 0.055 0" size="0.035 0.025" mass="0.20" rgba="0.15 0.15 0.15 1"/>
+   <body name="upper" pos="0 0 0">
+    <joint name="hip" type="hinge" axis="0 1 0" range="-1.1 1.1" limited="true"/>
+    <geom name="thigh" type="capsule" fromto="0 0 0 0 0 -0.2" size="0.012" mass="0.18" rgba="0.8 0.3 0.2 1"/>
+    <body name="lower" pos="0 0 -0.2">
+     <joint name="knee" type="hinge" axis="0 1 0" range="-1.8 0" limited="true"/>
+     <geom name="shin" type="capsule" fromto="0 0 0 0 0 -0.2" size="0.012" mass="0.14" rgba="0.8 0.55 0.2 1"/>
+     <geom name="foot" type="sphere" pos="0 0 -0.2" size="0.022" mass="0.04" rgba="0.1 0.1 0.1 1"/>
+    </body>
+   </body>
+  </body>
+ </worldbody>
+ <actuator>
+  <motor name="hip_drive" joint="hip" gear="1"/>
+  <motor name="knee_drive" joint="knee" gear="1"/>
+ </actuator>
+</mujoco>
